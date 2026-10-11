@@ -7,7 +7,20 @@
   "modo": "cambios",
   "hora_diaria": "07:00",
   "ultimo_envio_diario": "",
-  "vistos": {},
-  "update_offset": 820778230,
+  "vistos": {
+    "LEIB": {
+      "metar": 1791727200,
+      "taf": 1791705600
+    },
+    "LESB": {
+      "metar": 1791727200,
+      "taf": 0
+    },
+    "LEMD": {
+      "metar": 1791727200,
+      "taf": 1791716400
+    }
+  },
+  "update_offset": 820778232,
   "menu_registrado": "c715771d4ca1"
 }
