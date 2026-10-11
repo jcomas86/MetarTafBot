@@ -5,6 +5,11 @@
   "modo": "cambios",
   "hora_diaria": "07:00",
   "ultimo_envio_diario": "",
-  "vistos": {},
+  "vistos": {
+    "LEMD": {
+      "metar": 1791714600,
+      "taf": 1791694800
+    }
+  },
   "update_offset": 820778213
 }
