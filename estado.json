@@ -7,9 +7,10 @@
   "ultimo_envio_diario": "",
   "vistos": {
     "LEMD": {
-      "metar": 1791714600,
-      "taf": 1791694800
+      "metar": 1791725400,
+      "taf": 1791716400
     }
   },
-  "update_offset": 820778213
+  "update_offset": 820778213,
+  "menu_registrado": "c715771d4ca1"
 }
