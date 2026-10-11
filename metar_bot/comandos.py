@@ -6,14 +6,28 @@ PATRON_HORA = re.compile(r"^([01]?\d|2[0-3]):([0-5]\d)$")
 
 AYUDA = (
     "🛩️ <b>Bot METAR/TAF</b>\n\n"
+    "/buscar — buscar aeropuertos por continente y país\n"
+    "/buscar torrejon — buscar por nombre o código\n"
     "/add LEMD LEBL — añadir aeropuertos (código OACI)\n"
     "/remove LEBL — quitar aeropuertos\n"
     "/list — ver aeropuertos y modo\n"
     "/modo cambios — aviso cuando salga un METAR/TAF nuevo\n"
     "/modo diario 07:30 — un resumen al día a esa hora\n"
     "/ahora — informe inmediato\n\n"
-    "<i>El bot revisa cada ~15 min, así que las respuestas pueden tardar un poco.</i>"
+    "<i>El bot revisa cada ~15 min, así que el primer comando puede tardar un poco. "
+    "Después se queda atento unos minutos y responde al momento.</i>"
 )
+
+# Menú "/" de Telegram (setMyCommands)
+MENU_COMANDOS = [
+    ("buscar", "Buscar aeropuertos"),
+    ("list", "Ver mis aeropuertos y el modo"),
+    ("ahora", "Informe METAR/TAF inmediato"),
+    ("add", "Añadir por código OACI: /add LEMD"),
+    ("remove", "Quitar: /remove LEMD"),
+    ("modo", "/modo cambios  ó  /modo diario 07:30"),
+    ("help", "Ayuda"),
+]
 
 
 def _codigos(args):
@@ -59,7 +73,8 @@ def quitar_estaciones(estado, codigos):
 def procesar_comando(texto, estado, validar_estaciones):
     """
     Ejecuta un comando sobre `estado` (lo modifica).
-    Devuelve (respuesta, pedir_informe).
+    Devuelve (respuesta, pedir_informe). `respuesta` es un texto, o una tupla
+    (texto, botones) cuando la respuesta lleva botones.
     `validar_estaciones(ids)` -> {icao: nombre} de las que existen.
     """
     partes = texto.strip().split()
@@ -106,6 +121,10 @@ def procesar_comando(texto, estado, validar_estaciones):
             estado["ultimo_envio_diario"] = ""
             return f"⏱️ Modo diario: resumen cada día a las {estado['hora_diaria']} (hora de Madrid).", False
         return "Uso: /modo cambios  ó  /modo diario 07:30", False
+
+    if comando in ("/buscar", "/search"):
+        from metar_bot import buscador  # import local: buscador usa funciones de este módulo
+        return buscador.iniciar(args, estado), False
 
     if comando == "/ahora":
         if not estado["estaciones"]:

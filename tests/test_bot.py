@@ -6,12 +6,18 @@ from metar_bot import aviationweather
 from metar_bot.comandos import procesar_comando
 from metar_bot.estado import ESTADO_INICIAL
 from metar_bot.formato import agrupar_en_mensajes, formatear_estacion
-from metar_bot.main import ZONA_HORARIA, ejecutar
+from metar_bot.main import ZONA_HORARIA
+from metar_bot.main import ejecutar as _ejecutar
 
 METAR_LEMD = {"icaoId": "LEMD", "name": "Madrid/Barajas Intl, MD, ES", "obsTime": 1760180400,
               "rawOb": "LEMD 111100Z 21008KT CAVOK 18/09 Q1021 NOSIG", "fltCat": "VFR"}
 TAF_LEMD = {"icaoId": "LEMD", "issueTime": 1760158800,
             "rawTAF": "TAF LEMD 110500Z 1106/1212 21010KT CAVOK"}
+
+
+def ejecutar(*args, reloj=None, **kwargs):
+    """Siempre con reloj falso: la ventana interactiva nunca espera de verdad."""
+    return _ejecutar(*args, reloj=reloj or RelojFalso(), **kwargs)
 
 
 def estado_nuevo(**cambios):
@@ -29,12 +35,27 @@ class FakeTelegram:
     def __init__(self, updates=()):
         self.updates = list(updates)
         self.enviados = []
+        self.editados = []
+        self.avisos = []
+        self.menus = 0
 
-    def obtener_updates(self, token, offset):
+    def obtener_updates(self, token, offset, espera=0):
         return [u for u in self.updates if u["update_id"] >= offset]
 
-    def enviar_mensaje(self, token, chat_id, texto):
+    def enviar_mensaje(self, token, chat_id, texto, botones=None):
         self.enviados.append(texto)
+        return True
+
+    def editar_mensaje(self, token, chat_id, message_id, texto, botones=None):
+        self.editados.append((texto, botones))
+        return True
+
+    def responder_callback(self, token, callback_id, texto=None):
+        self.avisos.append(texto)
+        return True
+
+    def registrar_comandos(self, token, comandos):
+        self.menus += 1
         return True
 
 
@@ -158,3 +179,46 @@ def test_ahora_envia_informe_completo():
     tg = FakeTelegram([update(1, "/ahora")])
     ejecutar("t", 123, estado, AHORA, tg=tg, api=fake_api({"LEMD": METAR_LEMD}, {"LEMD": TAF_LEMD}))
     assert any("TAF LEMD" in m for m in tg.enviados)
+
+
+def test_menu_de_comandos_se_registra_una_sola_vez():
+    estado = estado_nuevo()
+    tg = FakeTelegram()
+    ejecutar("t", 123, estado, AHORA, tg=tg, api=fake_api({}, {}))
+    ejecutar("t", 123, estado, AHORA, tg=tg, api=fake_api({}, {}))
+    assert tg.menus == 1 and estado["menu_registrado"]
+
+
+class RelojFalso:
+    """Cada lectura avanza 30 s, como si cada long polling tardara eso."""
+    def __init__(self):
+        self.t = 0
+
+    def __call__(self):
+        self.t += 30
+        return self.t
+
+
+class TelegramConCola(FakeTelegram):
+    """Entrega los updates de uno en uno, simulando que el usuario sigue escribiendo."""
+    def obtener_updates(self, token, offset, espera=0):
+        pendientes = [u for u in self.updates if u["update_id"] >= offset]
+        return pendientes[:1]
+
+
+def test_ventana_interactiva_atiende_mensajes_posteriores_y_se_cierra():
+    estado = estado_nuevo(estaciones=["LEMD"])
+    tg = TelegramConCola([update(1, "/list"), update(2, "/ahora")])
+    api = fake_api({"LEMD": METAR_LEMD}, {"LEMD": TAF_LEMD})
+    reloj = RelojFalso()
+    ejecutar("t", 123, estado, AHORA, tg=tg, api=api, reloj=reloj)
+    assert estado["update_offset"] == 3
+    assert any("Aeropuertos" in m for m in tg.enviados)          # /list en la 1ª pasada
+    assert sum("LEMD 111100Z" in m for m in tg.enviados) == 2    # informe inicial + /ahora en la ventana
+    assert reloj.t < 15 * 60                                      # terminó por inactividad
+
+
+def test_sin_interaccion_no_se_abre_ventana():
+    reloj = RelojFalso()
+    ejecutar("t", 123, estado_nuevo(), AHORA, tg=FakeTelegram(), api=fake_api({}, {}), reloj=reloj)
+    assert reloj.t == 0

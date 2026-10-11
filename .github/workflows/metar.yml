@@ -18,6 +18,8 @@ concurrency:
 jobs:
   metar-taf:
     runs-on: ubuntu-latest
+    # La ventana interactiva dura como mucho 10 min; esto es solo un tope de seguridad
+    timeout-minutes: 15
     steps:
       - name: Descargar el repositorio
         uses: actions/checkout@v4
@@ -43,4 +45,5 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add estado.json
           git diff --quiet --cached || git commit -m "Actualizar estado del bot METAR/TAF"
+          git pull --rebase
           git push
