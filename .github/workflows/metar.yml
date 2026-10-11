@@ -1,0 +1,46 @@
+name: METAR/TAF a Telegram
+
+on:
+  schedule:
+    # Cada 15 minutos (UTC). GitHub puede retrasar algo las ejecuciones programadas.
+    - cron: "*/15 * * * *"
+  workflow_dispatch: {}   # permite lanzarlo a mano desde la pestaña Actions
+
+# Necesario para que el workflow pueda hacer commit de estado.json
+permissions:
+  contents: write
+
+# Nunca dos ejecuciones a la vez (compartirían estado.json)
+concurrency:
+  group: metar-bot
+  cancel-in-progress: false
+
+jobs:
+  metar-taf:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar el repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Instalar dependencias
+        run: pip install -r requirements.txt
+
+      - name: Leer comandos y enviar METAR/TAF
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          ALLOWED_CHAT_ID: ${{ secrets.ALLOWED_CHAT_ID }}
+        run: python -m metar_bot.main
+
+      - name: Guardar el estado
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add estado.json
+          git diff --quiet --cached || git commit -m "Actualizar estado del bot METAR/TAF"
+          git push
