@@ -1,0 +1,74 @@
+[
+ {
+  "icaoId": "KJFK",
+  "obsTime": 1791723060,
+  "temp": 16.1,
+  "dewp": 12.2,
+  "wdir": 70,
+  "wspd": 10,
+  "visib": "10+",
+  "altim": 1028.2,
+  "wxString": "-RA",
+  "rawOb": "METAR KJFK 111251Z 07010KT 10SM -RA BKN046 BKN060 BKN120 OVC250 16/12 A3036 RMK AO2 RAB47 SLP280 P0000 T01610122 $",
+  "lat": 40.6392,
+  "lon": -73.7639,
+  "elev": 3,
+  "name": "New York/JF Kennedy Intl, NY, US",
+  "cover": "OVC",
+  "clouds": [
+   {
+    "cover": "BKN",
+    "base": 4600
+   },
+   {
+    "cover": "BKN",
+    "base": 6000
+   },
+   {
+    "cover": "BKN",
+    "base": 12000
+   },
+   {
+    "cover": "OVC",
+    "base": 25000
+   }
+  ],
+  "fltCat": "VFR"
+ },
+ {
+  "icaoId": "LEMD",
+  "obsTime": 1791725400,
+  "temp": 23,
+  "dewp": 9,
+  "wdir": "VRB",
+  "wspd": 2,
+  "visib": "6+",
+  "altim": 1016,
+  "rawOb": "METAR LEMD 111330Z VRB02KT CAVOK 23/09 Q1016 NOSIG",
+  "lat": 40.466,
+  "lon": -3.555,
+  "elev": 589,
+  "name": "Madrid/Barajas Arpt, M, ES",
+  "cover": "CAVOK",
+  "clouds": [],
+  "fltCat": "VFR"
+ },
+ {
+  "icaoId": "LETO",
+  "obsTime": 1791725400,
+  "temp": 23,
+  "dewp": 8,
+  "wdir": 210,
+  "wspd": 4,
+  "visib": "6+",
+  "altim": 1016,
+  "rawOb": "METAR LETO 111330Z 21004KT 140V260 CAVOK 23/08 Q1016 NOSIG",
+  "lat": 40.489,
+  "lon": -3.451,
+  "elev": 598,
+  "name": "Torrejon , M, ES",
+  "cover": "CAVOK",
+  "clouds": [],
+  "fltCat": "VFR"
+ }
+]

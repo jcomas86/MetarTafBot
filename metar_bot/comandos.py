@@ -20,6 +20,42 @@ def _codigos(args):
     return [a.strip(",").upper() for a in args if a.strip(",")]
 
 
+def anadir_estaciones(estado, codigos, validar_estaciones):
+    """Añade los códigos válidos a la lista y devuelve el texto de respuesta."""
+    invalidos = [c for c in codigos if not PATRON_OACI.match(c)]
+    nuevos = [c for c in codigos if PATRON_OACI.match(c) and c not in estado["estaciones"]]
+    existentes = validar_estaciones(nuevos) if nuevos else {}
+    no_encontrados = [c for c in nuevos if c not in existentes]
+    anadidos = [c for c in nuevos if c in existentes]
+
+    hueco = max(MAX_ESTACIONES - len(estado["estaciones"]), 0)
+    sobrantes = anadidos[hueco:]
+    anadidos = anadidos[:hueco]
+    estado["estaciones"].extend(anadidos)
+
+    lineas = []
+    if anadidos:
+        lineas.append("✅ Añadidos: " + ", ".join(f"{c} ({existentes[c]})" for c in anadidos))
+    if no_encontrados or invalidos:
+        lineas.append("❌ No encontrados: " + ", ".join(invalidos + no_encontrados))
+    if sobrantes:
+        lineas.append(f"⚠️ Máximo {MAX_ESTACIONES} aeropuertos. No añadidos: " + ", ".join(sobrantes))
+    if not lineas:
+        lineas.append("Esos aeropuertos ya estaban en tu lista.")
+    return "\n".join(lineas)
+
+
+def quitar_estaciones(estado, codigos):
+    """Quita los códigos de la lista y devuelve el texto de respuesta."""
+    quitados = [c for c in codigos if c in estado["estaciones"]]
+    estado["estaciones"] = [c for c in estado["estaciones"] if c not in quitados]
+    for c in quitados:
+        estado["vistos"].pop(c, None)
+    if not quitados:
+        return "Ninguno de esos aeropuertos estaba en tu lista."
+    return "🗑️ Quitados: " + ", ".join(quitados)
+
+
 def procesar_comando(texto, estado, validar_estaciones):
     """
     Ejecuta un comando sobre `estado` (lo modifica).
@@ -40,39 +76,13 @@ def procesar_comando(texto, estado, validar_estaciones):
         codigos = _codigos(args)
         if not codigos:
             return "Uso: /add LEMD LEBL", False
-        invalidos = [c for c in codigos if not PATRON_OACI.match(c)]
-        nuevos = [c for c in codigos if PATRON_OACI.match(c) and c not in estado["estaciones"]]
-        existentes = validar_estaciones(nuevos) if nuevos else {}
-        no_encontrados = [c for c in nuevos if c not in existentes]
-        anadidos = [c for c in nuevos if c in existentes]
-
-        hueco = max(MAX_ESTACIONES - len(estado["estaciones"]), 0)
-        sobrantes = anadidos[hueco:]
-        anadidos = anadidos[:hueco]
-        estado["estaciones"].extend(anadidos)
-
-        lineas = []
-        if anadidos:
-            lineas.append("✅ Añadidos: " + ", ".join(f"{c} ({existentes[c]})" for c in anadidos))
-        if no_encontrados or invalidos:
-            lineas.append("❌ No encontrados: " + ", ".join(invalidos + no_encontrados))
-        if sobrantes:
-            lineas.append(f"⚠️ Máximo {MAX_ESTACIONES} aeropuertos. No añadidos: " + ", ".join(sobrantes))
-        if not lineas:
-            lineas.append("Esos aeropuertos ya estaban en tu lista.")
-        return "\n".join(lineas), False
+        return anadir_estaciones(estado, codigos, validar_estaciones), False
 
     if comando == "/remove":
         codigos = _codigos(args)
         if not codigos:
             return "Uso: /remove LEBL", False
-        quitados = [c for c in codigos if c in estado["estaciones"]]
-        estado["estaciones"] = [c for c in estado["estaciones"] if c not in quitados]
-        for c in quitados:
-            estado["vistos"].pop(c, None)
-        if not quitados:
-            return "Ninguno de esos aeropuertos estaba en tu lista.", False
-        return "🗑️ Quitados: " + ", ".join(quitados), False
+        return quitar_estaciones(estado, codigos), False
 
     if comando == "/list":
         if estado["modo"] == "diario":

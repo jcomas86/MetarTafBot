@@ -1,0 +1,34 @@
+name: Actualizar base de aeropuertos
+
+on:
+  schedule:
+    # El día 1 de cada mes a las 03:17 UTC
+    - cron: "17 3 1 * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+# Comparte grupo con el bot para no pisar sus commits de estado.json
+concurrency:
+  group: metar-bot
+  cancel-in-progress: false
+
+jobs:
+  generar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt pycountry
+      - run: python scripts/generar_aeropuertos.py
+      - name: Guardar aeropuertos.json
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add aeropuertos.json
+          git diff --quiet --cached || git commit -m "Actualizar base de aeropuertos"
+          git pull --rebase
+          git push

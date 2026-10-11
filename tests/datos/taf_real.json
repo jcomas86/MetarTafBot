@@ -1,0 +1,343 @@
+[
+ {
+  "icaoId": "KJFK",
+  "issueTime": "2026-10-11T13:05:00.000Z",
+  "validTimeFrom": 1791723600,
+  "validTimeTo": 1791828000,
+  "rawTAF": "TAF KJFK 111305Z 1113/1218 08012KT P6SM -RA BKN040 FM111500 10015G24KT 6SM -RA OVC035 FM111700 09016G27KT 4SM RA BR OVC020 FM112000 09018G28KT 2SM RA BR OVC008 FM120200 06012G22KT 5SM -SHRA BR SCT003 OVC005 TEMPO 1203/1206 BKN003 FM120600 02012KT 6SM -SHRA BR SCT004 OVC005 TEMPO 1206/1209 BKN004 FM121200 36011KT P6SM BKN025",
+  "lat": 40.63916,
+  "lon": -73.76394,
+  "elev": 3,
+  "name": "New York/JF Kennedy Intl",
+  "fcsts": [
+   {
+    "timeFrom": 1791723600,
+    "timeTo": 1791730800,
+    "timeBec": null,
+    "fcstChange": null,
+    "probability": null,
+    "wdir": 80,
+    "wspd": 12,
+    "wgst": null,
+    "visib": "6+",
+    "altim": null,
+    "vertVis": null,
+    "wxString": "-RA",
+    "clouds": [
+     {
+      "cover": "BKN",
+      "base": 4000,
+      "type": null
+     }
+    ],
+    "icgTurb": [],
+    "temp": []
+   },
+   {
+    "timeFrom": 1791730800,
+    "timeTo": 1791738000,
+    "timeBec": null,
+    "fcstChange": "FM",
+    "probability": null,
+    "wdir": 100,
+    "wspd": 15,
+    "wgst": 24,
+    "visib": 6,
+    "altim": null,
+    "vertVis": null,
+    "wxString": "-RA",
+    "clouds": [
+     {
+      "cover": "OVC",
+      "base": 3500,
+      "type": null
+     }
+    ],
+    "icgTurb": [],
+    "temp": []
+   },
+   {
+    "timeFrom": 1791738000,
+    "timeTo": 1791748800,
+    "timeBec": null,
+    "fcstChange": "FM",
+    "probability": null,
+    "wdir": 90,
+    "wspd": 16,
+    "wgst": 27,
+    "visib": 4,
+    "altim": null,
+    "vertVis": null,
+    "wxString": "RA BR",
+    "clouds": [
+     {
+      "cover": "OVC",
+      "base": 2000,
+      "type": null
+     }
+    ],
+    "icgTurb": [],
+    "temp": []
+   },
+   {
+    "timeFrom": 1791748800,
+    "timeTo": 1791770400,
+    "timeBec": null,
+    "fcstChange": "FM",
+    "probability": null,
+    "wdir": 90,
+    "wspd": 18,
+    "wgst": 28,
+    "visib": 2,
+    "altim": null,
+    "vertVis": null,
+    "wxString": "RA BR",
+    "clouds": [
+     {
+      "cover": "OVC",
+      "base": 800,
+      "type": null
+     }
+    ],
+    "icgTurb": [],
+    "temp": []
+   },
+   {
+    "timeFrom": 1791770400,
+    "timeTo": 1791784800,
+    "timeBec": null,
+    "fcstChange": "FM",
+    "probability": null,
+    "wdir": 60,
+    "wspd": 12,
+    "wgst": 22,
+    "visib": 5,
+    "altim": null,
+    "vertVis": null,
+    "wxString": "-SHRA BR",
+    "clouds": [
+     {
+      "cover": "SCT",
+      "base": 300,
+      "type": null
+     },
+     {
+      "cover": "OVC",
+      "base": 500,
+      "type": null
+     }
+    ],
+    "icgTurb": [],
+    "temp": []
+   },
+   {
+    "timeFrom": 1791774000,
+    "timeTo": 1791784800,
+    "timeBec": null,
+    "fcstChange": "TEMPO",
+    "probability": null,
+    "wdir": null,
+    "wspd": null,
+    "wgst": null,
+    "visib": "",
+    "altim": null,
+    "vertVis": null,
+    "wxString": null,
+    "clouds": [
+     {
+      "cover": "BKN",
+      "base": 300,
+      "type": null
+     }
+    ],
+    "icgTurb": [],
+    "temp": []
+   },
+   {
+    "timeFrom": 1791784800,
+    "timeTo": 1791806400,
+    "timeBec": null,
+    "fcstChange": "FM",
+    "probability": null,
+    "wdir": 20,
+    "wspd": 12,
+    "wgst": null,
+    "visib": 6,
+    "altim": null,
+    "vertVis": null,
+    "wxString": "-SHRA BR",
+    "clouds": [
+     {
+      "cover": "SCT",
+      "base": 400,
+      "type": null
+     },
+     {
+      "cover": "OVC",
+      "base": 500,
+      "type": null
+     }
+    ],
+    "icgTurb": [],
+    "temp": []
+   },
+   {
+    "timeFrom": 1791784800,
+    "timeTo": 1791795600,
+    "timeBec": null,
+    "fcstChange": "TEMPO",
+    "probability": null,
+    "wdir": null,
+    "wspd": null,
+    "wgst": null,
+    "visib": "",
+    "altim": null,
+    "vertVis": null,
+    "wxString": null,
+    "clouds": [
+     {
+      "cover": "BKN",
+      "base": 400,
+      "type": null
+     }
+    ],
+    "icgTurb": [],
+    "temp": []
+   },
+   {
+    "timeFrom": 1791806400,
+    "timeTo": 1791828000,
+    "timeBec": null,
+    "fcstChange": "FM",
+    "probability": null,
+    "wdir": 360,
+    "wspd": 11,
+    "wgst": null,
+    "visib": "6+",
+    "altim": null,
+    "vertVis": null,
+    "wxString": null,
+    "clouds": [
+     {
+      "cover": "BKN",
+      "base": 2500,
+      "type": null
+     }
+    ],
+    "icgTurb": [],
+    "temp": []
+   }
+  ]
+ },
+ {
+  "icaoId": "LEMD",
+  "issueTime": "2026-10-11T11:00:00.000Z",
+  "validTimeFrom": 1791720000,
+  "validTimeTo": 1791828000,
+  "rawTAF": "TAF LEMD 111100Z 1112/1218 VRB04KT CAVOK TX22/1115Z TN09/1206Z PROB30 TEMPO 1112/1118 22007G17KT",
+  "lat": 40.466,
+  "lon": -3.555,
+  "elev": 589,
+  "name": "Madrid/Barajas Arpt",
+  "fcsts": [
+   {
+    "timeFrom": 1791720000,
+    "timeTo": 1791828000,
+    "timeBec": null,
+    "fcstChange": null,
+    "probability": null,
+    "wdir": "VRB",
+    "wspd": 4,
+    "wgst": null,
+    "visib": "6+",
+    "altim": null,
+    "vertVis": null,
+    "wxString": null,
+    "clouds": [
+     {
+      "cover": "NSC",
+      "base": null,
+      "type": null
+     }
+    ],
+    "icgTurb": [],
+    "temp": [
+     {
+      "validTime": 1791730800,
+      "surfaceTemp": 22,
+      "maxOrMin": "MAX"
+     },
+     {
+      "validTime": 1791784800,
+      "surfaceTemp": 9,
+      "maxOrMin": "MIN"
+     }
+    ]
+   },
+   {
+    "timeFrom": 1791720000,
+    "timeTo": 1791741600,
+    "timeBec": null,
+    "fcstChange": "TEMPO",
+    "probability": 30,
+    "wdir": 220,
+    "wspd": 7,
+    "wgst": 17,
+    "visib": "",
+    "altim": null,
+    "vertVis": null,
+    "wxString": null,
+    "clouds": [],
+    "icgTurb": [],
+    "temp": []
+   }
+  ]
+ },
+ {
+  "icaoId": "LETO",
+  "issueTime": "2026-10-11T11:00:00.000Z",
+  "validTimeFrom": 1791720000,
+  "validTimeTo": 1791806400,
+  "rawTAF": "TAF LETO 111100Z 1112/1212 VRB04KT CAVOK TX22/1115Z TN09/1206Z",
+  "lat": 40.489,
+  "lon": -3.451,
+  "elev": 598,
+  "name": "Torrejon ",
+  "fcsts": [
+   {
+    "timeFrom": 1791720000,
+    "timeTo": 1791806400,
+    "timeBec": null,
+    "fcstChange": null,
+    "probability": null,
+    "wdir": "VRB",
+    "wspd": 4,
+    "wgst": null,
+    "visib": "6+",
+    "altim": null,
+    "vertVis": null,
+    "wxString": null,
+    "clouds": [
+     {
+      "cover": "NSC",
+      "base": null,
+      "type": null
+     }
+    ],
+    "icgTurb": [],
+    "temp": [
+     {
+      "validTime": 1791730800,
+      "surfaceTemp": 22,
+      "maxOrMin": "MAX"
+     },
+     {
+      "validTime": 1791784800,
+      "surfaceTemp": 9,
+      "maxOrMin": "MIN"
+     }
+    ]
+   }
+  ]
+ }
+]
