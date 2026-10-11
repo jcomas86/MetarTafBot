@@ -1,8 +1,10 @@
 {
-  "estaciones": [],
+  "estaciones": [
+    "LEMD"
+  ],
   "modo": "cambios",
   "hora_diaria": "07:00",
   "ultimo_envio_diario": "",
   "vistos": {},
-  "update_offset": 0
+  "update_offset": 820778213
 }
