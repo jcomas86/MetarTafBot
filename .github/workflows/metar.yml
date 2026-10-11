@@ -3,7 +3,7 @@ name: METAR/TAF a Telegram
 on:
   schedule:
     # Cada 30 min, unos minutos después de que salgan los METAR (hh:00 y hh:30).
-    # Se evita el minuto 0 porque GitHub retrasa o descarta más las ejecuciones a en punto.
+    # Se evita el minuto 0 porque GitHub retrasa o descarta más las ejecuciones a en punto. TestFuncionamiento
     - cron: "8,38 * * * *"
   workflow_dispatch: {}   # permite lanzarlo a mano desde la pestaña Actions
 
