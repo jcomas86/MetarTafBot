@@ -58,6 +58,14 @@ def test_ultimo_por_estacion_se_queda_con_el_mas_reciente():
     assert r["LEMD"]["obsTime"] == 5 and set(r) == {"LEMD", "LEBL"}
 
 
+def test_horas_en_texto_iso_se_convierten_a_unix():
+    datos = [{"icaoId": "LEMD", "issueTime": "2025-10-11T05:00:00.000Z"},
+             {"icaoId": "LEMD", "issueTime": "2025-10-11T11:00:00Z"}]
+    r = aviationweather._ultimo_por_estacion(datos, "issueTime")
+    assert r["LEMD"]["issueTime"] == 1760180400
+    assert aviationweather.a_timestamp(None) == 0 and aviationweather.a_timestamp("basura") == 0
+
+
 def test_get_json_sin_ids_no_llama_a_la_red():
     assert aviationweather._get_json("metar", []) == []
 

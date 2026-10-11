@@ -5,6 +5,8 @@ Se hace una sola petición por tipo (METAR / TAF) para todas las
 estaciones, pasando los códigos OACI separados por comas.
 """
 
+from datetime import datetime
+
 import requests
 
 API_BASE = "https://aviationweather.gov/api/data"
@@ -28,10 +30,23 @@ def _get_json(endpoint, ids):
     return resp.json()
 
 
+def a_timestamp(valor):
+    """La API da unas horas como unix (int) y otras como texto ISO: lo pasamos todo a unix."""
+    if isinstance(valor, (int, float)):
+        return int(valor)
+    if isinstance(valor, str) and valor:
+        try:
+            return int(datetime.fromisoformat(valor.replace("Z", "+00:00")).timestamp())
+        except ValueError:
+            return 0
+    return 0
+
+
 def _ultimo_por_estacion(registros, campo_tiempo):
     """La API puede devolver varios registros por estación: nos quedamos con el más reciente."""
     resultado = {}
     for r in registros:
+        r[campo_tiempo] = a_timestamp(r.get(campo_tiempo))
         icao = (r.get("icaoId") or "").upper()
         if not icao:
             continue
