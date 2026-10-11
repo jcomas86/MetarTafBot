@@ -37,6 +37,7 @@ jobs:
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           ALLOWED_CHAT_ID: ${{ secrets.ALLOWED_CHAT_ID }}
+          PYTHONUNBUFFERED: "1"   # que el log se vea en directo
         run: python -m metar_bot.main
 
       - name: Guardar el estado
