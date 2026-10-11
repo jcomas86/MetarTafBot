@@ -3,7 +3,7 @@
 Bot: [@MetarTafTWRbot](https://t.me/MetarTafTWRbot)
 
 Envía a Telegram el METAR y el TAF de los aeropuertos que elijas, con datos de la API pública de
-[aviationweather.gov](https://aviationweather.gov/data/api/). Funciona con GitHub Actions cada ~15 min,
+[aviationweather.gov](https://aviationweather.gov/data/api/). Funciona con GitHub Actions cada ~30 min,
 así que no necesita servidor.
 
 ## Comandos
@@ -18,7 +18,7 @@ así que no necesita servidor.
 | `/modo diario 07:30` | un resumen al día (hora de Madrid) |
 | `/ahora` | informe inmediato |
 
-El bot se ejecuta cada ~15 min, así que el **primer** comando puede tardar en contestar.
+El bot se ejecuta cada ~30 min, así que el **primer** comando puede tardar en contestar.
 Después se queda escuchando unos 5 min (ventana interactiva) y los botones responden al momento.
 
 ## Formato de los mensajes

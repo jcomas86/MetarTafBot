@@ -14,7 +14,7 @@ AYUDA = (
     "/modo cambios — aviso cuando salga un METAR/TAF nuevo\n"
     "/modo diario 07:30 — un resumen al día a esa hora\n"
     "/ahora — informe inmediato\n\n"
-    "<i>El bot revisa cada ~15 min, así que el primer comando puede tardar un poco. "
+    "<i>El bot revisa cada ~30 min, así que el primer comando puede tardar un poco. "
     "Después se queda atento unos minutos y responde al momento.</i>"
 )
 

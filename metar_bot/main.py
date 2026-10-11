@@ -1,5 +1,5 @@
 """
-Una ejecución del bot (la lanza GitHub Actions cada ~15 min):
+Una ejecución del bot (la lanza GitHub Actions cada ~30 min):
   1. Lee los comandos recibidos en Telegram y los contesta.
   2. Descarga METAR y TAF de los aeropuertos guardados.
   3. Envía el informe según el modo (cambios / diario / ahora).
