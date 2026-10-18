@@ -9,16 +9,16 @@
   "ultimo_envio_diario": "",
   "vistos": {
     "LEIB": {
-      "metar": 1792341000,
-      "taf": 1792336200
+      "metar": 1792350000,
+      "taf": 1792350660
     },
     "LESB": {
-      "metar": 1792341000,
+      "metar": 1792350000,
       "taf": 0
     },
     "LEMD": {
-      "metar": 1792341000,
-      "taf": 1792321200
+      "metar": 1792350000,
+      "taf": 1792342800
     }
   },
   "update_offset": 820778240,
